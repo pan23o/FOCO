@@ -1639,7 +1639,7 @@ function repeatCurrentCard(){
   if(!C.q||!C.session)return;
   const id=C.q.id;
   if(C.session.queue.slice(C.session.cursor+1).includes(id)){toast('Esta tarjeta ya está programada para repetirse al final.');return}
-  C.session.queue.push(id);
+  C.session.queue.push(id);C.session.requeued[id]=true;
   toast('Tarjeta añadida al final de esta sesión.');
   renderCard();
 }
@@ -1659,7 +1659,7 @@ function rate(n){
   state.cards[c.id]=s;
   state.cardSequence=[...(Array.isArray(state.cardSequence)?state.cardSequence:[]),cardContext(c)].slice(-24);
   if(c.qid){markWrong(c.qid,n===1);if(n>=3&&s.box>=2)state.wrongIds=(state.wrongIds||[]).filter(x=>x!==c.qid)}
-  if(n===1&&!C.session.requeued[c.id]){
+  if(n===1&&!C.session.requeued[c.id]&&!C.session.queue.slice(C.session.cursor+1).includes(c.id)){
     C.session.queue.push(c.id);
     C.session.requeued[c.id]=true;
   }
