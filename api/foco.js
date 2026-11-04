@@ -136,7 +136,7 @@ module.exports = async function focoAI(req, res) {
       body: JSON.stringify({
         model: MODEL,
         stream: true,
-        max_tokens: action === 'structure' ? 13000 : action === 'questions' ? 6500 : 2200,
+        max_completion_tokens: action === 'structure' ? 13000 : action === 'questions' ? 6500 : 2200,
         temperature: 0.25,
         response_format: { type: 'json_object' },
         messages: [{ role: 'system', content: system }, { role: 'user', content: userContent }]
