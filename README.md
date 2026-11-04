@@ -1,6 +1,6 @@
 # FOCO · Estudia y aprueba
 
-Web de estudio de una sola página y función privada de IA para estructurar temas y generar preguntas nuevas.
+Web de estudio con lectura cómoda de los temas subidos, tutor de dudas y generación de preguntas con IA. El contenido del tema es la única fuente de las respuestas y las preguntas.
 
 ## Publicar en Vercel
 
