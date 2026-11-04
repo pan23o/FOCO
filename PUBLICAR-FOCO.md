@@ -34,11 +34,17 @@ Si GitHub abre el navegador para iniciar sesión, autoriza la subida. Cuando ter
 3. Pon el nombre del proyecto `foco`, deja la raíz del repositorio y elige **Other** si pregunta por el framework. No hace falta comando de compilación.
 4. Pulsa **Deploy**. Vercel publicará la página y `/api/foco`.
 
-## 4. Activar la IA
+## 4. Activar la IA gratuita
 
-En el proyecto de Vercel, abre **Settings → Security → Secure Backend Access with OIDC Federation**, actívalo y guarda. La función usa el token OIDC del servidor de Vercel para llamar a AI Gateway; también acepta `AI_GATEWAY_API_KEY` como variable secreta del proyecto si prefieres una clave. Nunca pongas esa clave en `index.html`.
+1. Entra en [Google AI Studio](https://aistudio.google.com/apikey) y crea una API key.
+2. En Vercel abre el proyecto `foco` → **Settings → Environment Variables**.
+3. Crea la variable `GEMINI_API_KEY`, pega la clave como valor y marca **Production**.
+4. Para mantener el uso en el nivel gratuito, no vincules una cuenta de facturación ni contrates un plan de pago.
+5. Después, crea un nuevo despliegue de Production. Las variables nuevas no se aplican a despliegues que ya estaban creados.
 
-Si Vercel te pide configurar AI Gateway o créditos, sigue ese paso en tu cuenta. Después abre la web, entra en **Temas** y pulsa el botón de FOCO con IA para estructurar un tema y preparar preguntas.
+FOCO usa Gemini 3.8 Flash como IA principal. Groq queda como respaldo temporal mientras no exista `GEMINI_API_KEY`. Los límites gratuitos de Google dependen del proyecto y se consultan en AI Studio; pueden limitar solicitudes por minuto o tokens. En el nivel gratuito, Google puede utilizar el contenido enviado para mejorar sus productos, así que no envíes datos sensibles.
+
+Nunca pongas la clave en `index.html`, ni la compartas por chat, ni la subas a GitHub.
 
 ## 5. Llevar tus temas guardados a la web
 
