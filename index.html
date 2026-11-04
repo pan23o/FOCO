@@ -1401,6 +1401,10 @@ const css=document.createElement('style');css.textContent=`
 .fx-rate4{gap:8px}.fx-rate4 .btn{flex:1;min-width:104px;display:flex;flex-direction:column;gap:2px;align-items:center}.fx-rate4 .btn small{font-size:.68rem;opacity:.75;font-weight:500}
 .fx-plan{margin:14px 0;padding:16px;border:1px solid var(--green);border-radius:14px;background:linear-gradient(135deg,var(--green-pale),var(--paper) 72%)}.fx-plan h3{margin:0 0 5px;font-size:1rem}.fx-plan p{margin:0;color:var(--muted);font-size:.84rem;line-height:1.5}.fx-plan-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.fx-plan .fx-pill{display:inline-block;margin-bottom:8px}@media(max-width:760px){.fx-grid{grid-template-columns:repeat(2,1fr)}.fx-steps{grid-template-columns:1fr}}
 `;document.head.appendChild(css);
+const cardUx=document.createElement('style');
+cardUx.textContent="\n.fx-card-filters{display:flex;align-items:end;gap:10px;flex-wrap:wrap;width:100%}\n.fx-card-filters label{display:flex;flex-direction:column;gap:5px;font-size:.72rem;color:var(--muted);font-weight:650}\n.fx-card-filters select{min-width:150px;max-width:240px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:9px 11px;font:inherit}\n.fx-card-summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%;margin-top:10px}\n.fx-card-summary>span{font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 9px}\n.fx-card-summary button{font-size:.76rem;padding:7px 10px}\n.fx-session-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0 8px}\n.fx-session-head>div{display:flex;align-items:center;gap:12px;flex-wrap:wrap}\n.fx-session-head strong{font-size:.88rem}\n.fx-session-mode,.fx-session-count{font-size:.73rem;color:var(--muted)}\n.fx-session-mode{border:1px solid var(--line);padding:5px 9px;border-radius:999px}\n.fx-session-track{height:5px;border-radius:999px;background:var(--line);overflow:hidden;margin-bottom:16px}\n.fx-session-track span{display:block;height:100%;background:var(--green);border-radius:999px;transition:width .25s ease}\n.fx-flip{perspective:1100px;max-width:790px;margin:0 auto}\n.fx-face{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:340px;padding:clamp(24px,5vw,54px);border:1px solid var(--line);border-radius:20px;background:var(--paper);box-shadow:0 14px 36px rgba(0,0,0,.08);text-align:center;cursor:pointer;transition:transform .22s ease,border-color .22s ease;overflow:hidden}\n.fx-face:hover{border-color:var(--green)}\n.fx-face:focus-visible{outline:3px solid var(--green);outline-offset:3px}\n.fx-face small{align-self:center;font-size:.68rem;letter-spacing:.12em;font-weight:800;color:var(--green);text-transform:uppercase}\n.fx-face .fx-cfront{font-size:clamp(1.15rem,2.7vw,1.8rem);line-height:1.5;font-weight:700;max-width:650px}\n.fx-face.back{align-items:stretch;justify-content:flex-start;text-align:left;min-height:340px}\n.fx-face.back .fx-qline{font-size:.86rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:14px}\n.fx-face.back .fx-bl{margin:0 0 8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px}\n.fx-face.back .fx-bl span{font-size:.66rem;letter-spacing:.08em;color:var(--green);font-weight:800;text-transform:uppercase}\n.fx-face.back .fx-bl p{font-size:.96rem;line-height:1.55;margin:5px 0 0;color:var(--ink)}\n.fx-card-front-actions,.fx-card-back-actions{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:14px auto 0}\n.fx-rate4{max-width:790px;margin:14px auto 0;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}\n.fx-rate4 .btn{min-width:0;min-height:76px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:12px}\n.fx-rate4 .btn b{font-size:.88rem}\n.fx-rate4 .btn small{font-size:.68rem;opacity:.8;font-weight:500}\n.fx-rate4 .btn .fx-interval{font-weight:800;color:var(--green);opacity:1}\n.fx-card-help{text-align:center;margin:12px auto 0;font-size:.72rem}\n.fx-session-done{text-align:center;padding:34px 16px 26px;border:1px solid var(--line);border-radius:18px;background:var(--paper)}\n.fx-session-done h3{margin:8px 0;font-size:1.25rem}\n.fx-session-done p{margin:7px 0}\n.fx-done-icon{display:grid;place-items:center;width:54px;height:54px;margin:0 auto 14px;border-radius:50%;background:var(--green-pale);color:var(--green);font-size:1.5rem;font-weight:900}\n@media(max-width:640px){.fx-face,.fx-face.back{min-height:270px;padding:24px 18px}.fx-rate4{grid-template-columns:repeat(2,minmax(0,1fr))}.fx-session-head{align-items:flex-start;flex-direction:column}.fx-card-filters label{flex:1;min-width:130px}.fx-card-filters select{width:100%;min-width:0}.fx-rate4 .btn{min-height:68px}}\n";
+document.head.appendChild(cardUx);
+
 
 /* ---------- Vistas nuevas ---------- */
 const main=document.querySelector('.main')||document.body;
@@ -1449,9 +1453,9 @@ function nextPractice(){P.i++;P.answered=false;P.selected=null;P.confidence=null
 document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;const v=$('view-practice');if(v&&v.classList.contains('active')&&P.list[P.i]){const k=e.key.toLowerCase();if(P.answered&&(e.key==='Enter'||e.key===' ')){e.preventDefault();nextPractice();return}if(!P.answered&&e.key==='Enter'&&P.selected!==null&&P.confidence){e.preventDefault();submitPractice(false);return}if(P.answered)return;const q=P.list[P.i];if(k==='v'||k==='f'){const j=q._opts.findIndex(o=>o.t===(k==='v'?'Verdadero':'Falso'));if(j>=0){e.preventDefault();selectPractice(j)}return}const m={'1':0,'2':1,'3':2,'4':3,a:0,b:1,c:2,d:3}[k];if(m!==undefined&&m<q._opts.length){e.preventDefault();selectPractice(m)}}
  const cv=$('view-cards');if(cv&&cv.classList.contains('active')){if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}else if(C.flipped&&/^[1-4]$/.test(e.key)){e.preventDefault();rate(+e.key)}else if(!C.flipped&&(e.key==='h'||e.key==='H')){e.preventDefault();toggleHint()}}});
 
-/* ---------- Tarjetas v2: repaso espaciado con 4 niveles y tarjetas de verdad ---------- */
+/* ---------- Tarjetas v3: sesiones flexibles, repetición y repaso adaptativo ---------- */
 const INT=[0,1,3,7,14,30],MIN=60000,DAY=864e5;
-let C={q:null,flipped:false,hint:false,last:'',force:false,topic:'all',type:'all'};
+let C={q:null,flipped:false,hint:false,hintVisible:false,topic:'all',type:'all',sessionMode:'smart',session:null};
 const cardCache={};
 const firstL=s=>String(s||'').split(/\s+/).filter(Boolean).slice(0,3).map(w=>w.charAt(0)+'…').join(' ');
 function fromQuestion(q){
@@ -1483,16 +1487,15 @@ function filtered(){
   if(C.type!=='all')l=l.filter(c=>c.label===C.type);
   return l;
 }
-function stateOf(c){const s=state.cards[c.id];return !s?'new':(s.due<=Date.now()?'due':'wait')}
+function stateOf(c){const s=state.cards[c.id];return !s?'new':(Number(s.due||0)<=Date.now()?'due':'wait')}
 function dueCards(list){
-  const now=Date.now();
-  const rev=list.filter(c=>stateOf(c)==='due').sort((a,b)=>state.cards[a.id].due-state.cards[b.id].due);
+  const rev=list.filter(c=>stateOf(c)==='due').sort((a,b)=>(state.cards[a.id]?.due||0)-(state.cards[b.id]?.due||0));
   const nw=list.filter(c=>stateOf(c)==='new');
   return rev.concat(nw);
 }
 function cardContext(c){return{id:String(c.id||''),topic:String(c.topicId||''),root:normalizeQuestionText(c.root||c.section||c.id||''),type:normalizeQuestionText(c.label||c.type||'')}}
 function spacedCardPool(cards){
-  if(cards.length<2)return cards;
+  if(cards.length<2)return cards.slice();
   const recent=Array.isArray(state.cardSequence)?state.cardSequence:[],stages=[
     {ids:8,topics:4,roots:5,types:2},{ids:6,topics:3,roots:4,types:2},{ids:4,topics:2,roots:3,types:1},{ids:2,topics:1,roots:2,types:1},{ids:1,topics:0,roots:1,types:0},{ids:0,topics:0,roots:0,types:0}
   ];
@@ -1500,81 +1503,176 @@ function spacedCardPool(cards){
     const eligible=cards.filter(c=>{const key=cardContext(c);if(stage.ids&&recent.slice(-stage.ids).some(x=>x.id===key.id))return false;if(stage.topics&&key.topic&&recent.slice(-stage.topics).some(x=>x.topic===key.topic))return false;if(stage.roots&&key.root&&recent.slice(-stage.roots).some(x=>x.topic===key.topic&&x.root===key.root))return false;if(stage.types&&key.type&&recent.slice(-stage.types).some(x=>x.type===key.type))return false;return true});
     if(eligible.length)return shuffle(eligible);
   }
-  return cards;
+  return cards.slice();
 }
-function pickNext(list){
-  let q=dueCards(list);
-  if(!q.length){
-    const soon=list.filter(c=>stateOf(c)==='wait'&&state.cards[c.id].due-Date.now()<20*MIN).sort((a,b)=>state.cards[a.id].due-state.cards[b.id].due);
-    if(soon.length)return{card:spacedCardPool(soon)[0]||soon[0],mode:'learning',left:soon.length};
-    if(C.force){const rest=list.slice().sort((a,b)=>(state.cards[a.id]||{due:0}).due-(state.cards[b.id]||{due:0}).due),spaced=spacedCardPool(rest);if(rest.length)return{card:spaced[0]||rest[0],mode:'force',left:rest.length}}
-    return{card:null,mode:'done',left:0};
-  }
-  const spaced=spacedCardPool(q);
-  return{card:spaced[0]||q[0],mode:'due',left:q.length};
+function cardListForMode(list,mode){
+  if(mode==='all')return list.slice();
+  if(mode==='new')return list.filter(c=>stateOf(c)==='new');
+  if(mode==='hard')return list.filter(c=>{
+    const s=state.cards[c.id]||{};
+    return Number(s.lapses||0)>0||(Number(s.reps||0)>0&&Number(s.box||0)<=1)||(c.qid&&(state.wrongIds||[]).includes(c.qid));
+  });
+  if(mode==='marked')return list.filter(c=>!!state.cards[c.id]?.marked);
+  if(mode==='shuffle')return shuffle(list.slice());
+  return dueCards(list);
+}
+function startCardSession(mode){
+  const list=filtered(),chosen=cardListForMode(list,mode||'smart');
+  const ordered=mode==='shuffle'?chosen:spacedCardPool(chosen);
+  C.sessionMode=mode||'smart';
+  C.session={mode:C.sessionMode,queue:ordered.map(c=>c.id),cursor:0,done:0,skipped:0,started:Date.now(),requeued:{}};
+  C.q=null;C.flipped=false;C.hintVisible=false;renderCard();
+}
+function currentSessionCard(list){
+  if(!C.session)return null;
+  const id=C.session.queue[C.session.cursor];
+  if(!id)return null;
+  return list.find(c=>c.id===id)||null;
 }
 function plan(n,box){
   if(n===1)return{box:0,ms:2*MIN};
-  if(n===2)return box===0?{box:0,ms:10*MIN}:{box,ms:Math.max(.5,INT[box]*.5)*DAY};
+  if(n===2)return box===0?{box:0,ms:10*MIN}:{box,ms:Math.max(.5,INT[box]||1)*.5*DAY};
   const b=Math.min(INT.length-1,box+(n===4?2:1));return{box:b,ms:INT[b]*DAY};
 }
-function lab(ms){if(ms<MIN*60)return Math.max(1,Math.round(ms/MIN))+' min';const d=ms/DAY;if(d<1)return Math.round(d*24)+' h';if(d<30)return (Number.isInteger(d)?d:d.toFixed(1).replace('.',','))+(d===1?' día':' días');return '1 mes'}
+function lab(ms){
+  if(ms<MIN*60)return Math.max(1,Math.round(ms/MIN))+' min';
+  const d=ms/DAY;
+  if(d<1)return Math.max(1,Math.round(d*24))+' h';
+  if(d<30)return (Number.isInteger(d)?d:d.toFixed(1).replace('.',','))+(d===1?' día':' días');
+  return '30 días';
+}
+function modeName(mode){
+  return ({smart:'Repaso inteligente',all:'Todas las tarjetas',new:'Solo nuevas',hard:'Las que cuestan',marked:'Marcadas',shuffle:'Aleatorio'})[mode]||'Repaso inteligente';
+}
 function renderBar(list){
   const bar=$('fxCBar');if(!bar)return;
   const topics=(state.topics||[]).filter(t=>t.active&&topicCards(t).length);
   const types=[...new Set(allCards().filter(c=>C.topic==='all'||c.topicId===C.topic).map(c=>c.label))];
   if(C.topic!=='all'&&!topics.some(t=>t.id===C.topic))C.topic='all';
   if(C.type!=='all'&&!types.includes(C.type))C.type='all';
-  const nNew=list.filter(c=>stateOf(c)==='new').length,nDue=list.filter(c=>stateOf(c)==='due').length,nDone=list.filter(c=>(state.cards[c.id]||{}).box>=3).length;
-  bar.innerHTML=(topics.length>1?'<label>Tema <select id="fxCTopic"><option value="all">Todos</option>'+topics.map(t=>'<option value="'+E(t.id)+'"'+(C.topic===t.id?' selected':'')+'>'+E(t.name)+'</option>').join('')+'</select></label>':'')
-   +(types.length>1?'<label>Tipo <select id="fxCType"><option value="all">Todos</option>'+types.map(x=>'<option value="'+E(x)+'"'+(C.type===x?' selected':'')+'>'+E(x.charAt(0)+x.slice(1).toLowerCase())+'</option>').join('')+'</select></label>':'')
-   +'<span class="fx-pill">'+nNew+' nuevas · '+nDue+' a repasar · '+nDone+' dominadas</span>';
-  const a=$('fxCTopic'),b=$('fxCType');
-  if(a)a.onchange=()=>{C.topic=a.value;C.q=null;C.force=false;renderCard()};
-  if(b)b.onchange=()=>{C.type=b.value;C.q=null;C.force=false;renderCard()};
+  const nNew=list.filter(c=>stateOf(c)==='new').length,nDue=list.filter(c=>stateOf(c)==='due').length,nDone=list.filter(c=>(state.cards[c.id]||{}).box>=3).length,nMarked=list.filter(c=>state.cards[c.id]?.marked).length;
+  bar.innerHTML='<div class="fx-card-filters">'
+   +(topics.length>1?'<label>Tema<select id="fxCTopic"><option value="all">Todos los temas</option>'+topics.map(t=>'<option value="'+E(t.id)+'"'+(C.topic===t.id?' selected':'')+'>'+E(t.name)+'</option>').join('')+'</select></label>':'')
+   +(types.length>1?'<label>Tipo<select id="fxCType"><option value="all">Todos los tipos</option>'+types.map(x=>'<option value="'+E(x)+'"'+(C.type===x?' selected':'')+'>'+E(x.charAt(0)+x.slice(1).toLowerCase())+'</option>').join('')+'</select></label>':'')
+   +'<label>Modo de estudio<select id="fxCMode">'+[['smart','Repaso inteligente'],['all','Todas las tarjetas'],['new','Solo nuevas'],['hard','Las que cuestan'],['marked','Marcadas'],['shuffle','Aleatorio']].map(x=>'<option value="'+x[0]+'"'+(C.sessionMode===x[0]?' selected':'')+'>'+x[1]+'</option>').join('')+'</select></label>'
+   +'</div><div class="fx-card-summary"><span>'+nNew+' nuevas</span><span>'+nDue+' pendientes</span><span>'+nDone+' dominadas</span><span>'+nMarked+' marcadas</span><button type="button" class="btn ghost" id="fxCShuffle">↻ Mezclar</button><button type="button" class="btn ghost" id="fxCRestart">Repetir sesión</button></div>';
+  const a=$('fxCTopic'),b=$('fxCType'),m=$('fxCMode'),sh=$('fxCShuffle'),re=$('fxCRestart');
+  if(a)a.onchange=()=>{C.topic=a.value;startCardSession(C.sessionMode)};
+  if(b)b.onchange=()=>{C.type=b.value;startCardSession(C.sessionMode)};
+  if(m)m.onchange=()=>startCardSession(m.value);
+  if(sh)sh.onclick=()=>startCardSession('shuffle');
+  if(re)re.onclick=()=>startCardSession(C.sessionMode);
 }
 function renderCard(){
-  const b=$('fxCBody'),list=filtered();
+  const body=$('fxCBody'),list=filtered();
   renderBar(list);
   $('fxCInfo').textContent=list.length+' tarjetas';
-  if(!allCards().length){C.q=null;b.innerHTML='<div class="fx-empty">Aún no hay tarjetas. Crea preguntas desde un texto (con el prompt de FOCO salen tarjetas de conceptos, listas, comparaciones, casos y trampas).<br><br><button class="btn primary" type="button" onclick="setView(\'home\')">Pegar un texto</button></div>';return}
-  if(!list.length){C.q=null;b.innerHTML='<div class="fx-empty">No hay tarjetas con este filtro.</div>';return}
-  const r=pickNext(list);
-  if(!r.card){
-    C.q=null;
-    const next=Math.min(...list.map(c=>(state.cards[c.id]||{}).due||Infinity));
-    b.innerHTML='<div class="fx-empty" style="color:var(--ink)"><div style="font-size:2.4rem">🎉</div><p><b>Has terminado el repaso de hoy.</b></p><p class="sub">Próxima tarjeta: '+(isFinite(next)?new Date(next).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'}):'—')+'.</p><div class="fx-row" style="justify-content:center"><button class="btn" type="button" id="fxForce">Repasar igualmente</button><button class="btn ghost" type="button" onclick="setView(\'practice\')">Ir a práctica</button></div></div>';
-    $('fxForce').onclick=()=>{C.force=true;renderCard()};return;
+  if(!allCards().length){
+    C.q=null;C.session=null;
+    body.innerHTML='<div class="fx-empty">Todavía no hay tarjetas creadas. Sube un tema y genera su material de estudio.<br><br><button class="btn primary" type="button" onclick="setView(\'material\')">Ir a mis temas</button></div>';return;
   }
-  const c=r.card;C={...C,q:c,flipped:false,hint:false,mode:r.mode};
-  const sc=state.cards[c.id]||{box:0},tag=r.mode==='learning'?'EN APRENDIZAJE':(stateOf(c)==='new'?'NUEVA':'REPASO');
-  b.innerHTML='<div class="fx-flip"><div class="fx-face" id="fxFace" role="button" tabindex="0"></div></div>'
-   +'<div class="fx-row fx-rate4" id="fxRate" style="justify-content:center;visibility:hidden">'
-   +[1,2,3,4].map(n=>{const p=plan(n,sc.box||0),nm=['Otra vez','Difícil','Bien','Fácil'][n-1];return '<button class="btn '+(n===1?'danger':n===3?'primary':'')+'" type="button" data-n="'+n+'">'+n+' · '+nm+'<small>'+lab(p.ms)+'</small></button>'}).join('')
-   +'</div><div class="sub" style="text-align:center;margin-top:10px">'+tag+' · '+(c.section?E(c.section)+' · ':'')+'Espacio: girar · H: pista · 1–4: puntuar</div>';
-  $('fxFace').onclick=flip;$('fxFace').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};
+  if(!list.length){
+    C.q=null;C.session=null;
+    body.innerHTML='<div class="fx-empty">No hay tarjetas con estos filtros. Cambia el tema o el tipo para continuar.</div>';return;
+  }
+  if(!C.session||C.session.mode!==C.sessionMode) {
+    const chosen=cardListForMode(list,C.sessionMode),ordered=C.sessionMode==='shuffle'?chosen:spacedCardPool(chosen);
+    C.session={mode:C.sessionMode,queue:ordered.map(c=>c.id),cursor:0,done:0,skipped:0,started:Date.now(),requeued:{}};
+  }
+  const s=C.session,c=currentSessionCard(list);
+  if(!c){
+    C.q=null;
+    const next=list.map(x=>Number(state.cards[x.id]?.due||0)).filter(x=>x>Date.now()).sort((a,b)=>a-b)[0];
+    body.innerHTML='<div class="fx-session-done"><div class="fx-done-icon">✓</div><div class="kicker">// SESIÓN COMPLETADA</div><h3>Buen trabajo. Has terminado esta tanda.</h3><p class="sub">'+s.done+' repasadas · '+s.skipped+' saltadas · '+s.queue.length+' apariciones en total.</p><p class="sub">'+(next?'Próximo repaso programado: '+new Date(next).toLocaleString('es-ES',{weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})+'.':'No tienes más tarjetas pendientes por ahora.')+'</p><div class="fx-row" style="justify-content:center"><button type="button" class="btn primary" id="fxCRepeatDone">Repetir esta sesión</button><button type="button" class="btn" id="fxCAllDone">Estudiar todas</button><button type="button" class="btn ghost" id="fxCSmartDone">Repaso inteligente</button></div></div>';
+    $('fxCRepeatDone').onclick=()=>startCardSession(s.mode);
+    $('fxCAllDone').onclick=()=>startCardSession('all');
+    $('fxCSmartDone').onclick=()=>startCardSession('smart');
+    return;
+  }
+  C.q=c;C.flipped=false;C.hintVisible=false;
+  const sc=state.cards[c.id]||{box:0,reps:0,lapses:0},position=s.cursor+1,total=s.queue.length;
+  const pct=Math.round((s.cursor/Math.max(1,total))*100);
+  body.innerHTML='<div class="fx-session-head"><div><span class="fx-session-mode">'+E(modeName(s.mode))+'</span><strong>Tarjeta '+position+' de '+total+'</strong></div><span class="fx-session-count">'+s.done+' completadas</span></div><div class="fx-session-track"><span style="width:'+pct+'%"></span></div>'
+   +'<div class="fx-flip"><div class="fx-face" id="fxFace" role="button" tabindex="0" aria-label="Mostrar respuesta" aria-expanded="false"></div></div>'
+   +'<div class="fx-card-front-actions" id="fxFrontActions"><button type="button" class="btn primary" id="fxReveal">Mostrar respuesta</button>'+(c.hint?'<button type="button" class="btn ghost" id="fxHintBtn">Ver pista</button>':'')+'<button type="button" class="btn ghost" id="fxSkip">Saltar tarjeta →</button></div>'
+   +'<div class="fx-row fx-rate4" id="fxRate" style="justify-content:center;display:none">'
+   +[1,2,3,4].map(n=>{const p=plan(n,Number(sc.box)||0),nm=['Otra vez','Difícil','Bien','Fácil'][n-1],sub=['La vuelves a ver','Poco recuerdo','La recordé','Muy fácil'][n-1];return '<button class="btn '+(n===1?'danger':n===3?'primary':'')+'" type="button" data-n="'+n+'"><b>'+nm+'</b><small>'+sub+'</small><small class="fx-interval">'+lab(p.ms)+'</small></button>'}).join('')
+   +'</div><div class="fx-card-back-actions" id="fxBackActions" style="display:none"><button type="button" class="btn ghost" id="fxRepeatCard">Repetir al final ↻</button><button type="button" class="btn ghost" id="fxMarkCard">'+(sc.marked?'★ Marcada':'☆ Marcar')+'</button><button type="button" class="btn ghost" id="fxSkipBack">Saltar →</button></div>'
+   +'<div class="sub fx-card-help">Espacio: girar · H: pista · 1–4: valorar · R: repetir al final · S: saltar</div>';
+  $('fxFace').onclick=flip;
+  $('fxFace').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};
+  $('fxReveal').onclick=flip;
+  const hint=$('fxHintBtn');if(hint)hint.onclick=toggleHint;
+  $('fxSkip').onclick=skipCard;
+  $('fxSkipBack').onclick=skipCard;
+  $('fxRepeatCard').onclick=repeatCurrentCard;
+  $('fxMarkCard').onclick=toggleCardMarked;
   $('fxRate').querySelectorAll('button').forEach(x=>x.onclick=()=>rate(+x.dataset.n));
   paintFace();
 }
 function paintFace(){
   const f=$('fxFace');if(!f||!C.q)return;const c=C.q;
   f.classList.toggle('back',C.flipped);
+  f.setAttribute('aria-expanded',String(C.flipped));
   if(!C.flipped){
-    f.innerHTML='<small>'+E(c.label)+'</small><div class="fx-cfront">'+E(c.front)+'</div>'+(C.hint&&c.hint?'<div class="fx-hint">💡 Pista: '+E(c.hint)+'</div>':'')+'<div class="sub" style="margin-top:14px">'+(c.hint&&!C.hint?'Pulsa H para ver una pista · ':'')+'Toca para ver la respuesta</div>';
+    f.innerHTML='<small>'+E(c.label)+'</small><div class="fx-cfront">'+E(c.front)+'</div><div class="sub" style="margin-top:18px">Piensa la respuesta antes de girar la tarjeta</div>';
+    if(C.hintVisible&&c.hint)f.insertAdjacentHTML('beforeend','<div class="fx-hint">Pista: '+E(c.hint)+'</div>');
   }else{
     f.innerHTML='<small>RESPUESTA</small><div class="fx-qline">'+E(c.front)+'</div>'+c.back.map(x=>'<div class="fx-bl"><span>'+E(x[0])+'</span><p>'+E(x[1])+'</p></div>').join('');
   }
-  const r=$('fxRate');if(r)r.style.visibility=C.flipped?'visible':'hidden';
+  const rateBox=$('fxRate'),front=$('fxFrontActions'),back=$('fxBackActions');
+  if(rateBox)rateBox.style.display=C.flipped?'grid':'none';
+  if(front)front.style.display=C.flipped?'none':'flex';
+  if(back)back.style.display=C.flipped?'flex':'none';
 }
 function flip(){if(!C.q)return;C.flipped=!C.flipped;paintFace()}
-function toggleHint(){if(!C.q||C.flipped||!C.q.hint)return;C.hint=!C.hint;paintFace()}
-function rate(n){
-  if(!C.q)return;const c=C.q,s=state.cards[c.id]||{box:0,reps:0,lapses:0},p=plan(n,s.box||0);
-  s.box=p.box;s.due=Date.now()+p.ms;s.last=Date.now();s.reps=(s.reps||0)+1;if(n===1)s.lapses=(s.lapses||0)+1;
-  state.cards[c.id]=s;state.cardSequence=[...(Array.isArray(state.cardSequence)?state.cardSequence:[]),cardContext(c)].slice(-16);
-  if(c.qid){markWrong(c.qid,n===1);if(n>=3&&s.box>=2)state.wrongIds=(state.wrongIds||[]).filter(x=>x!==c.qid)}
-  addDone(1);save();renderCard();
+function toggleHint(){if(!C.q||C.flipped||!C.q.hint)return;C.hintVisible=!C.hintVisible;const f=$('fxFace');if(f){const existing=f.querySelector('.fx-hint');if(existing)existing.remove();if(C.hintVisible)f.insertAdjacentHTML('beforeend','<div class="fx-hint">Pista: '+E(C.q.hint)+'</div>')}}
+function advanceCard(skipped){
+  if(!C.session)return;
+  if(skipped)C.session.skipped=(C.session.skipped||0)+1;
+  else C.session.done=(C.session.done||0)+1;
+  C.session.cursor++;
+  C.q=null;C.flipped=false;C.hintVisible=false;renderCard();
 }
+function skipCard(){if(!C.q)return;advanceCard(true)}
+function repeatCurrentCard(){
+  if(!C.q||!C.session)return;
+  const id=C.q.id;
+  if(C.session.queue.slice(C.session.cursor+1).includes(id)){toast('Esta tarjeta ya está programada para repetirse al final.');return}
+  C.session.queue.push(id);
+  toast('Tarjeta añadida al final de esta sesión.');
+  renderCard();
+}
+function toggleCardMarked(){
+  if(!C.q)return;
+  const s=state.cards[C.q.id]||(state.cards[C.q.id]={box:0,reps:0,lapses:0});
+  s.marked=!s.marked;save();
+  const b=$('fxMarkCard');if(b)b.textContent=s.marked?'★ Marcada':'☆ Marcar';
+  toast(s.marked?'Tarjeta guardada en Marcadas.':'Tarjeta retirada de Marcadas.');
+}
+function rate(n){
+  if(!C.q||!C.session)return;
+  const c=C.q,s=state.cards[c.id]||(state.cards[c.id]={box:0,reps:0,lapses:0}),p=plan(n,Number(s.box)||0);
+  s.box=p.box;s.due=Date.now()+p.ms;s.last=Date.now();s.reps=(s.reps||0)+1;
+  if(n===1)s.lapses=(s.lapses||0)+1;
+  s.lastRating=n;
+  state.cards[c.id]=s;
+  state.cardSequence=[...(Array.isArray(state.cardSequence)?state.cardSequence:[]),cardContext(c)].slice(-24);
+  if(c.qid){markWrong(c.qid,n===1);if(n>=3&&s.box>=2)state.wrongIds=(state.wrongIds||[]).filter(x=>x!==c.qid)}
+  if(n===1&&!C.session.requeued[c.id]){
+    C.session.queue.push(c.id);
+    C.session.requeued[c.id]=true;
+  }
+  addDone(1);save();advanceCard(false);
+}
+document.addEventListener('keydown',e=>{
+  const cv=$('view-cards');if(!cv||!cv.classList.contains('active')||!C.q)return;
+  if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+  const k=e.key.toLowerCase();
+  if(!C.flipped&&k==='h'){e.preventDefault();toggleHint();return}
+  if(k==='r'){e.preventDefault();repeatCurrentCard();return}
+  if(k==='s'){e.preventDefault();skipCard();return}
+});
 /* ---------- Estadísticas ---------- */
 $('fxGoal').value=String(state.goal);$('fxGoal').onchange=e=>{state.goal=+e.target.value;save();paintStreak();renderStats()};
 function renderStudyPlan(){const qs=pool(),now=Date.now(),wrongIds=new Set(state.wrongIds||[]),wrong=qs.filter(q=>wrongIds.has(q.id)).length,concepts=new Set(qs.map(coverageId)),dueConcepts=[...concepts].filter(id=>Number(state.conceptProgress?.[id]?.dueAt||Infinity)<=now).length,uncertain=qs.filter(q=>questionReviewSignals(q).uncertain>0).length,cards=allCards(),dueCards=cards.filter(c=>stateOf(c)==='due').length;let title='Sigue construyendo tu memoria',copy='El repaso inteligente alterna conceptos nuevos y contenidos que ya toca recuperar.',source='adaptive',label=qs.length?'Empezar repaso':'Subir tema',target=qs.length?'practice':'material';if(wrong){title='Empieza por tus fallos';copy=wrong+' preguntas falladas de tus temas activos esperan un nuevo intento.';source='wrong';label='Practicar falladas'}else if(dueConcepts){title='Toca recuperar lo aprendido';copy=dueConcepts+' conceptos han llegado a su momento de repaso espaciado.';source='adaptive';label='Repasar conceptos'}else if(uncertain){title='Aclara las respuestas con dudas';copy=uncertain+' preguntas tienen señales de «Adiviné» o «Dudé» en tus respuestas.';source='uncertain';label='Repasar dudas'}else if(dueCards){title='Tienes tarjetas listas para repasar';copy=dueCards+' tarjetas han llegado a su fecha de repaso.';target='cards';label='Abrir tarjetas'}const cardAction=cards.length&&target!=='cards'?'<button class="btn ghost" type="button" id="fxPlanCards">Ver tarjetas '+(dueCards?'· '+dueCards+' pendientes':'')+'</button>':'';return'<section class="fx-plan"><span class="fx-pill">TU SIGUIENTE PASO</span><h3>'+title+'</h3><p>'+copy+'</p><div class="fx-plan-actions"><button class="btn primary" type="button" id="fxPlanStart" data-source="'+source+'" data-target="'+target+'">'+label+' →</button>'+cardAction+'</div></section>'}function renderStats(){const h=state.examHistory||[],scores=h.map(x=>+x.score||0),avg=scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:0,best=scores.length?Math.max(...scores):0;
