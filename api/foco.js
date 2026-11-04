@@ -55,13 +55,18 @@ function checkRateLimit(req) {
 }
 
 function gatewayMessage(status, body) {
+  let parsed = {};
   let detail = '';
   try {
-    const parsed = JSON.parse(body);
+    parsed = JSON.parse(body);
     detail = String(parsed.error?.message || parsed.message || '');
   } catch {}
+  const code = String(parsed.error?.code || parsed.error?.type || parsed.code || '').toLowerCase();
   if (status === 401) return 'La autenticación de la IA no está activa en Vercel. Revisa la configuración de AI Gateway.';
-  if (status === 402 || status === 403) return 'AI Gateway no tiene créditos disponibles o necesita verificar la cuenta de Vercel.';
+  if (code === 'customer_verification_required') return 'Vercel necesita verificar la cuenta antes de usar AI Gateway. Completa la verificación o añade un método de pago en Vercel.';
+  if (code === 'quota_for_entity_exceeded') return 'Se alcanzó el límite de gasto de AI Gateway. Revisa el presupuesto configurado en Vercel.';
+  if (code === 'insufficient_funds' || status === 402) return 'No quedan créditos disponibles en AI Gateway. Revisa el saldo y añade créditos en Vercel.';
+  if (status === 403) return 'AI Gateway rechazó la cuenta o sus permisos. Revisa la verificación y el acceso de la cuenta en Vercel.';
   if (status === 429) return 'La IA está recibiendo demasiadas solicitudes. Espera un momento y vuelve a intentarlo.';
   if (status === 503) return 'El modelo de IA no está disponible ahora. Inténtalo de nuevo más tarde.';
   return detail ? 'AI Gateway no pudo completar la solicitud: ' + detail.slice(0, 240) : 'AI Gateway no pudo completar la solicitud.';
