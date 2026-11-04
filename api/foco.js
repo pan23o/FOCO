@@ -13,6 +13,12 @@ function sendError(res, status, message) {
   res.end(JSON.stringify({ error: message }));
 }
 
+function gatewayToken(req) {
+  const requestToken = req.headers?.['x-vercel-oidc-token'];
+  const oidcToken = Array.isArray(requestToken) ? requestToken[0] : requestToken;
+  return process.env.AI_GATEWAY_API_KEY || oidcToken || process.env.VERCEL_OIDC_TOKEN || '';
+}
+
 async function readBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
   const chunks = [];
@@ -66,7 +72,7 @@ module.exports = async function focoAI(req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
-    return res.end(JSON.stringify({ ready: Boolean(process.env.VERCEL_OIDC_TOKEN || process.env.AI_GATEWAY_API_KEY), model: MODEL }));
+    return res.end(JSON.stringify({ ready: Boolean(gatewayToken(req)), model: MODEL }));
   }
   if (req.method !== 'POST') return sendError(res, 405, 'Método no permitido.');
   if (!checkOrigin(req)) return sendError(res, 403, 'La solicitud debe hacerse desde la web de FOCO.');
@@ -84,7 +90,7 @@ module.exports = async function focoAI(req, res) {
   const question = String(payload.question || '').trim();
   if (action === 'ask' && question.length < 3) return sendError(res, 400, 'Escribe una duda concreta sobre el tema.');
   if (action === 'ask' && question.length > 1200) return sendError(res, 400, 'La duda es demasiado larga. Resúmela en menos de 1200 caracteres.');
-  const token = process.env.VERCEL_OIDC_TOKEN || process.env.AI_GATEWAY_API_KEY;
+  const token = gatewayToken(req);
   if (!token) return sendError(res, 503, 'La IA todavía no está conectada a este proyecto de Vercel.');
 
   const system = action === 'ask'
@@ -191,3 +197,4 @@ module.exports = async function focoAI(req, res) {
     try { reader.releaseLock(); } catch {}
   }
 };
+
